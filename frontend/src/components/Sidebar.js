@@ -33,6 +33,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import flexBetween from "./flexBetween";
 import FlexBetween from "./flexBetween";
+import { color } from "@mui/system";
 
 const navItems = [
   {
@@ -94,95 +95,86 @@ const navItems = [
 ];
 
 const Sidebar = ({
-  isNonMobile, 
-  drawerWidth, 
-  isSidebarOpen, 
+  isNonMobile,
+  drawerWidth,
+  isSidebarOpen,
   setisSidebarOpen }) => {
-    const {pathname} = useLocation()
-    const [active, setActive] = useState("")
-    const navigate = useNavigate()
-    const theme = useTheme()
-    
-    useEffect(() => setActive(pathname.substring(1)), [pathname])
-    
+  const { pathname } = useLocation()
+  const [active, setActive] = useState("")
+  const navigate = useNavigate()
+  const theme = useTheme()
+  useEffect(() => setActive(pathname.substring(1)), [pathname])
+
 
   return (
-    
-      <Box component="nav">
-         {isSidebarOpen && (
-           <Drawer 
-             open = {isSidebarOpen}
-             onClose={() => setisSidebarOpen(false)}
-             variant = "persistent"
-             anchor = "left"
-             sx={{
-              width: drawerWidth,
-              "& .MuiDrawer-paper": {
-                color: theme.palette.secondary[200],
-                backgroundColor: theme.palette.background.alt,
-                boxSixing: "border-box",
-                borderWidth: isNonMobile ? 0 : "2px",
-                width: drawerWidth,
-              },
-            }}
-            >
-              
-              <Box m='1.5rem 2rem 2rem 3rem'>
-                <FlexBetween color={theme.palette.secondary.main}>
-                   <Box>
-                      <Typography variant="h4" fontWeight= "bold">ECOMVISION</Typography>
-                   </Box>
-                   {!isNonMobile && (
-                    <IconButton>
-                      <ChevronLeft/>
-                    </IconButton>
-                   )}
-                </FlexBetween>
-              </Box>
-              <List>
-                 {navItems.map((el) => {
-                    console.log(el.text === "Dashboard")
-                    if (el.text === "Dashboard") {
-                     return  <Box>
-                        <FlexBetween>
-                           <IconButton>
-                             {el.icon}
-                           </IconButton>
-                           <Typography>
-                             {el.text}
-                           </Typography>
-                           <IconButton>
-                             <ChevronRight/>
-                           </IconButton>
-                        </FlexBetween>
-                      </Box>
-                    } else {
-                      if(el.icon) {
-                        return <ListItem>
-                           <ListItemButton>
-                              <FlexBetween>
-                                 <IconButton>
-                                   {el.icon}
-                                 </IconButton>
-                                 <Typography>
-                                   {el.text}
-                                 </Typography>
-                              </FlexBetween>
-                           </ListItemButton>
-                        </ListItem>
-                      }
-                      return <Box m='1.5rem 2rem 2rem 3rem'>
-                        <Typography>{el.text}</Typography>
-                      </Box>
-                    }
-                   
-                 })}
-              </List>
 
-              
-           </Drawer>
-         )}
-      </Box>
+    <Box component="nav">
+      {isSidebarOpen && (
+        <Drawer
+          open={isSidebarOpen}
+          onClose={() => setisSidebarOpen(false)}
+          variant="persistent"
+          anchor="left"
+          sx={{
+            width: drawerWidth,
+            "& .MuiDrawer-paper": {
+              color: theme.palette.secondary[200],
+              backgroundColor: theme.palette.background.alt,
+              boxSixing: "border-box",
+              borderWidth: isNonMobile ? 0 : "2px",
+              width: drawerWidth,
+            },
+          }}
+        >
+
+          <Box m='1.5rem 2rem 2rem 3rem'>
+            <FlexBetween color={theme.palette.secondary.main}>
+              <Box>
+                <Typography variant="h4" fontWeight="bold">ECOMVISION</Typography>
+              </Box>
+              {!isNonMobile && (
+                <IconButton>
+                  <ChevronLeft />
+                </IconButton>
+              )}
+            </FlexBetween>
+          </Box>
+          <List>
+            {navItems.map(({ text, icon }) => {
+              if (icon) {
+                const lcText = text.toLowerCase()
+                return <ListItem key={text} disablePadding>
+                  <ListItemButton
+                    onClick={() => {
+                      navigate(`/${lcText}`)
+                      setActive(lcText)
+                    }}
+                    sx={{
+                      backgroundColor: lcText === active ? theme.palette.secondary[300] : "transparent",
+                      color: lcText === active ? theme.palette.primary[600] : theme.palette.secondary[100]
+
+                    }}>
+                    <ListItemIcon sx={{
+                      ml: "2rem",
+                      color: lcText === active ? theme.palette.primary[600] : theme.palette.secondary[200]
+                    }}>{icon}
+                    </ListItemIcon>
+                    <ListItemText primary={text} />
+                    {
+                      active === lcText && (
+                        <ChevronRightOutlined sx={{ ml: "auto" }} />
+                      )}
+                  </ListItemButton>
+                </ListItem>
+              }
+              return <Box key={text} m='1.5rem 2rem 2rem 3rem'>
+                <Typography>{text}</Typography>
+              </Box>
+            })}
+          </List>
+        </Drawer>
+      )}
+    </Box>
   )
 }
 

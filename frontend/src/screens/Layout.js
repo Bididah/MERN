@@ -1,4 +1,4 @@
-import {React, useState } from 'react'
+import { React, useState } from 'react'
 import { Box, useMediaQuery } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
@@ -11,17 +11,17 @@ const Layout = () => {
 
   return (
     <Box display={isNonMobile ? "flex" : "block"} width="100%" height="100%">
-      <Sidebar 
+      <Sidebar
         isNonMobile={isNonMobile}
         drawerWidth="250px"
         isSidebarOpen={isSidebarOpen}
-        setIsSidebarOpen={setIsSidebarOpen}/> 
+        setIsSidebarOpen={setIsSidebarOpen} />
       <Box flexGrow={1}>
-        <Navbar 
-          setIsSidebarOpen = {setIsSidebarOpen} 
-          isSidebarOpen = {isSidebarOpen}
+        <Navbar
+          setIsSidebarOpen={setIsSidebarOpen}
+          isSidebarOpen={isSidebarOpen}
         />
-        {/* <Outlet/> */}
+        <Outlet />
       </Box>
     </Box>
   )
