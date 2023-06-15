@@ -7,7 +7,7 @@ import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import Layout from "screens/Layout";
 import Dashboard from "screens/Dashboard";
 import Product from "screens/Product";
-
+import ProductForm from "screens/ProductForm";
 
 
 function App() {
@@ -23,6 +23,7 @@ function App() {
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<Dashboard />} ></Route>
               <Route path="/products" element={<Product />} ></Route>
+              <Route path="/addProduct" element={<ProductForm />}></Route>
             </Route>
           </Routes>
         </ThemeProvider>

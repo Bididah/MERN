@@ -2,6 +2,8 @@ import React from 'react'
 import Header from '../components/Header'
 import { Box, Card, CardContent, CardActions, Typography, Rating, Button, useTheme } from '@mui/material'
 import { useGetProductQuery } from 'state/api'
+import { getProduct } from 'state/api'
+import { useQuery } from '@tanstack/react-query'
 
 const Product = ({
   _id,
@@ -36,10 +38,14 @@ const Product = ({
   )
 }
 const Products = () => {
-  const { data, isLoading } = useGetProductQuery()
+  const { data } = useQuery({
+    queryKey: ["products"],
+    queryFn: getProduct
+  })
+
   return (
     <Box m='1.5rem 2.5rem'>
-      <Header title={"Products"} subTitle={'See your list of Product'} />
+      <Header title={"Products"} subTitle={'See your list of Product'} needButton={true} buttonText={'add new product'} path="/addProduct" />
       {data ? (
         <Box
           mt='3rem'
