@@ -16,4 +16,13 @@ const getProduct = async (req, res) => {
   }
 }
 
-export default getProduct
+const postProduct = async (req, res) => {
+  try {
+    console.log(req.body)
+    await Product.create(req.body)
+    res.json("Product created...")
+  } catch (error) {
+    console.log(error)
+  }
+}
+export { getProduct, postProduct }
