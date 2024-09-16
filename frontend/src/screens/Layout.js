@@ -30,6 +30,21 @@ const Layout = () => {
         />
         <Outlet />
       </Box>
+            <Box flexGrow={1}>
+        <Navbar 
+          setIsSidebarOpen = {setIsSidebarOpen} 
+          isSidebarOpen = {isSidebarOpen}
+        />
+        {/* <Outlet/> */}
+      </Box>
+            <Box flexGrow={1}>
+        <Navbar 
+          setIsSidebarOpen = {setIsSidebarOpen} 
+          isSidebarOpen = {isSidebarOpen}
+        />
+        {/* <Outlet/> */}
+      </Box>
+
     </Box>
   )
 }
