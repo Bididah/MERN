@@ -9,6 +9,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { postProduct } from 'state/api'
 import * as yup from "yup";
 
+const infos = []
+const product = []
+const toto = [] 
 const productShcema = yup.object({
   name: yup.string().required(),
   price: yup.number().positive().required(),
